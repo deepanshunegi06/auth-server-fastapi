@@ -7,6 +7,9 @@ SECRET_KEY = "authcore-university-demo-secret-2025"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 REFRESH_TOKEN_EXPIRE_DAYS = 7
+MIN_PASSWORD_LENGTH = 8
+MAX_PASSWORD_LENGTH = 100
+BCRYPT_ROUNDS = 12
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto", bcrypt__rounds=12)
 
