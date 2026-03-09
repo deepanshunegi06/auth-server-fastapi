@@ -20,6 +20,23 @@ BCRYPT_ROUNDS = 12
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto", bcrypt__rounds=BCRYPT_ROUNDS)
 
 
+def validate_password_strength(password: str) -> tuple[bool, str]:
+    """
+    Validate password meets minimum security requirements.
+
+    Args:
+        password: The password string to validate.
+
+    Returns:
+        Tuple of (is_valid, error_message). If valid, error_message is empty.
+    """
+    if len(password) < MIN_PASSWORD_LENGTH:
+        return False, f"Password must be at least {MIN_PASSWORD_LENGTH} characters"
+    if len(password) > MAX_PASSWORD_LENGTH:
+        return False, f"Password must not exceed {MAX_PASSWORD_LENGTH} characters"
+    return True, ""
+
+
 def hash_password(password: str) -> str:
     """
     Hash a plaintext password using bcrypt.
