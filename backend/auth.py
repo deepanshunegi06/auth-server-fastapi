@@ -20,34 +20,78 @@ BCRYPT_ROUNDS = 12
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto", bcrypt__rounds=BCRYPT_ROUNDS)
 
 
-# Hash a plaintext password
 def hash_password(password: str) -> str:
+    """
+    Hash a plaintext password using bcrypt.
+
+    Args:
+        password: The plaintext password to hash.
+
+    Returns:
+        The bcrypt hashed password string.
+    """
     return pwd_context.hash(password)
 
 
-# Verify plaintext against stored hash
 def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """
+    Verify a plaintext password against a stored hash.
+
+    Args:
+        plain_password: The plaintext password to verify.
+        hashed_password: The stored bcrypt hash to compare against.
+
+    Returns:
+        True if password matches, False otherwise.
+    """
     return pwd_context.verify(plain_password, hashed_password)
 
 
-# Create a short-lived access token
 def create_access_token(data: dict) -> str:
+    """
+    Create a short-lived JWT access token.
+
+    Args:
+        data: Dictionary containing claims to encode (typically user_id, email).
+
+    Returns:
+        Encoded JWT access token string.
+    """
     to_encode = data.copy()
     expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire, "type": "access"})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
-# Create a long-lived refresh token
 def create_refresh_token(data: dict) -> str:
+    """
+    Create a long-lived JWT refresh token.
+
+    Args:
+        data: Dictionary containing claims to encode (typically user_id, email).
+
+    Returns:
+        Encoded JWT refresh token string.
+    """
     to_encode = data.copy()
     expire = datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
     to_encode.update({"exp": expire, "type": "refresh"})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
-# Decode and validate a JWT token
 def decode_token(token: str) -> dict:
+    """
+    Decode and validate a JWT token.
+
+    Args:
+        token: The JWT token string to decode.
+
+    Returns:
+        Dictionary containing the decoded token payload.
+
+    Raises:
+        HTTPException: If the token is invalid or expired.
+    """
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         return payload
