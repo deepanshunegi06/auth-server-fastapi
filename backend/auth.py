@@ -1,3 +1,9 @@
+"""
+Authentication utilities for AuthCore API.
+
+This module provides JWT token creation/validation and bcrypt password
+hashing functions. All security-sensitive constants are defined here.
+"""
 from datetime import datetime, timedelta, timezone
 from fastapi import HTTPException, status
 from jose import JWTError, jwt
