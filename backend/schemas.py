@@ -1,3 +1,9 @@
+"""
+Pydantic schemas for request validation and response serialization.
+
+This module defines all API request/response models with automatic validation.
+Schemas are organized by feature: authentication, user profiles, and audit logs.
+"""
 from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, EmailStr, field_validator
