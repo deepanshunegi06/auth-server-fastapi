@@ -7,9 +7,11 @@ Schemas are organized by feature: authentication, user profiles, and audit logs.
 from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, EmailStr, field_validator
+from auth import MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH
 
 
 class RegisterRequest(BaseModel):
+    """Request schema for user registration."""
     username: str
     email: EmailStr
     password: str
@@ -18,10 +20,10 @@ class RegisterRequest(BaseModel):
     @field_validator("password")
     @classmethod
     def validate_password(cls, v):
-        if len(v) < 8:
-            raise ValueError("Password must be at least 8 characters")
-        if len(v) > 100:
-            raise ValueError("Password must be at most 100 characters")
+        if len(v) < MIN_PASSWORD_LENGTH:
+            raise ValueError(f"Password must be at least {MIN_PASSWORD_LENGTH} characters")
+        if len(v) > MAX_PASSWORD_LENGTH:
+            raise ValueError(f"Password must be at most {MAX_PASSWORD_LENGTH} characters")
         return v
 
 
