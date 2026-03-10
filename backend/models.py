@@ -57,12 +57,27 @@ class TokenBlacklist(Base):
 
 
 class AuditLog(Base):
+    """
+    Security audit log for tracking authentication events.
+
+    Records all login attempts, registrations, and account security events
+    for compliance and security monitoring purposes.
+
+    Attributes:
+        id: Primary key.
+        email: Email of the user performing the action.
+        ip_address: Client IP address.
+        action: Event type (LOGIN, REGISTER, LOGOUT, FAILED_LOGIN, LOCKED).
+        status: Result of the action (SUCCESS, FAILED).
+        user_agent: Browser/client user agent string.
+        timestamp: When the event occurred.
+    """
     __tablename__ = "audit_logs"
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String(100), nullable=False)
     ip_address = Column(String(50), nullable=False)
-    action = Column(String(50), nullable=False)   # LOGIN / REGISTER / LOGOUT / FAILED_LOGIN / LOCKED
-    status = Column(String(20), nullable=False)   # SUCCESS / FAILED
+    action = Column(String(50), nullable=False)
+    status = Column(String(20), nullable=False)
     user_agent = Column(String(200), nullable=True)
     timestamp = Column(DateTime, default=func.now(), nullable=False)
