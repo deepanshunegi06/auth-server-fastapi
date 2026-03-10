@@ -1,3 +1,9 @@
+"""
+SQLAlchemy ORM models for AuthCore API.
+
+This module defines the database schema for users, token blacklisting,
+and audit logging. All models inherit from the SQLAlchemy Base.
+"""
 from sqlalchemy import Boolean, Column, DateTime, Integer, String, Text
 from sqlalchemy.sql import func
 from database import Base
