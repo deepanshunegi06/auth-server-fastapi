@@ -21,6 +21,16 @@ Base = declarative_base()
 
 # Dependency for route handlers
 def get_db():
+    """
+    Dependency that provides a database session for each request.
+
+    Yields:
+        Session: SQLAlchemy database session.
+
+    Note:
+        The session is automatically closed after the request completes,
+        ensuring proper resource cleanup even if an exception occurs.
+    """
     db = SessionLocal()
     try:
         yield db
