@@ -10,6 +10,20 @@ from database import Base
 
 
 class User(Base):
+    """
+    User account model with authentication and security fields.
+
+    Attributes:
+        id: Primary key.
+        username: Unique display name (max 50 chars).
+        email: Unique email address for login (max 100 chars).
+        hashed_password: Bcrypt password hash.
+        role: User role ('user' or 'admin').
+        is_locked: Account lockout status after failed attempts.
+        failed_attempts: Counter for consecutive failed logins.
+        created_at: Account creation timestamp.
+        last_login: Most recent successful login timestamp.
+    """
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
