@@ -38,6 +38,17 @@ class User(Base):
 
 
 class TokenBlacklist(Base):
+    """
+    Blacklisted JWT tokens for secure logout.
+
+    When a user logs out, their refresh token is added here to prevent reuse.
+    Tokens should be periodically cleaned up after expiration.
+
+    Attributes:
+        id: Primary key.
+        token: The JWT token string (stored as Text for length).
+        blacklisted_at: Timestamp when token was invalidated.
+    """
     __tablename__ = "token_blacklist"
 
     id = Column(Integer, primary_key=True, index=True)
