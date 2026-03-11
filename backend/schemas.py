@@ -28,11 +28,13 @@ class RegisterRequest(BaseModel):
 
 
 class LoginRequest(BaseModel):
+    """Request schema for user login with email and password."""
     email: EmailStr
     password: str
 
 
 class UserResponse(BaseModel):
+    """Response schema for user profile data."""
     id: int
     username: str
     email: str
@@ -46,6 +48,7 @@ class UserResponse(BaseModel):
 
 
 class TokenResponse(BaseModel):
+    """Response schema for authentication tokens with user data."""
     access_token: str
     refresh_token: str
     token_type: str = "Bearer"
@@ -54,10 +57,12 @@ class TokenResponse(BaseModel):
 
 
 class RefreshRequest(BaseModel):
+    """Request schema for token refresh."""
     refresh_token: str
 
 
 class ProfileResponse(BaseModel):
+    """Response schema for authenticated user profile."""
     user_id: int
     username: str
     email: str
@@ -66,6 +71,7 @@ class ProfileResponse(BaseModel):
 
 
 class AuditLogResponse(BaseModel):
+    """Response schema for security audit log entries."""
     id: int
     email: str
     ip_address: str
@@ -78,6 +84,7 @@ class AuditLogResponse(BaseModel):
 
 
 class StatsResponse(BaseModel):
+    """Response schema for admin dashboard statistics."""
     total_users: int
     active_sessions: int
     failed_logins_today: int
@@ -85,5 +92,6 @@ class StatsResponse(BaseModel):
 
 
 class MessageResponse(BaseModel):
+    """Generic response schema for simple messages."""
     message: str
     success: bool = True
