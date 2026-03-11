@@ -14,11 +14,26 @@ from models import TokenBlacklist, User
 security = HTTPBearer()
 
 
-# Extract and validate bearer token, return user object
 def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
     db: Session = Depends(get_db),
-):
+) -> User:
+    """
+    Dependency to extract and validate the current authenticated user.
+
+    Validates the bearer token, checks if it's blacklisted, and returns
+    the associated user object.
+
+    Args:
+        credentials: HTTP Bearer token from Authorization header.
+        db: Database session dependency.
+
+    Returns:
+        User: The authenticated user object.
+
+    Raises:
+        HTTPException: 401 if token is invalid, revoked, or user not found.
+    """
     token = credentials.credentials
 
     # Check token blacklist
