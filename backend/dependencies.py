@@ -4,6 +4,7 @@ FastAPI dependencies for authentication and authorization.
 This module provides reusable dependencies for securing API endpoints,
 including JWT token validation and role-based access control (RBAC).
 """
+from typing import Callable
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.orm import Session
@@ -61,9 +62,25 @@ def get_current_user(
     return user
 
 
-# Factory for role-based access control dependency
-def require_role(*roles):
-    def role_checker(current_user: User = Depends(get_current_user)):
+def require_role(*roles: str) -> Callable:
+    """
+    Factory for creating role-based access control dependencies.
+
+    Creates a dependency that checks if the current user has one of the
+    specified roles before allowing access to the endpoint.
+
+    Args:
+        *roles: Variable number of role names that are allowed access.
+
+    Returns:
+        Callable: A dependency function that validates user roles.
+
+    Example:
+        @app.get("/admin")
+        def admin_only(user: User = Depends(require_role("admin"))):
+            return {"message": "Admin access granted"}
+    """
+    def role_checker(current_user: User = Depends(get_current_user)) -> User:
         if current_user.role not in roles:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
