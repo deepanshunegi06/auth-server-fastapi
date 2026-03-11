@@ -34,8 +34,25 @@ router = APIRouter(tags=["Authentication"])
 MAX_FAILED_ATTEMPTS = 5
 
 
-# Log an action to the audit table
-def log_action(db, email, ip, action, status, user_agent=None):
+def log_action(
+    db: Session,
+    email: str,
+    ip: str,
+    action: str,
+    status: str,
+    user_agent: str | None = None
+) -> None:
+    """
+    Record an authentication event in the audit log.
+
+    Args:
+        db: Database session.
+        email: User email associated with the action.
+        ip: Client IP address.
+        action: Event type (LOGIN, REGISTER, LOGOUT, FAILED_LOGIN, LOCKED).
+        status: Result of the action (SUCCESS, FAILED).
+        user_agent: Optional browser user agent string.
+    """
     entry = AuditLog(
         email=email,
         ip_address=ip,
