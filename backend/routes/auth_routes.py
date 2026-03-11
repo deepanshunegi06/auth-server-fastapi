@@ -1,3 +1,12 @@
+"""
+Authentication API routes for user registration, login, and token management.
+
+This module handles all public authentication endpoints including:
+- User registration with email/password
+- Login with account lockout protection
+- Token refresh for session extension
+- Secure logout with token blacklisting
+"""
 from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy.orm import Session
