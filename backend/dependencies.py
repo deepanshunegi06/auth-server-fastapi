@@ -1,3 +1,9 @@
+"""
+FastAPI dependencies for authentication and authorization.
+
+This module provides reusable dependencies for securing API endpoints,
+including JWT token validation and role-based access control (RBAC).
+"""
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.orm import Session
