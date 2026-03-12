@@ -63,8 +63,8 @@ def root() -> dict:
         dict: API name, version, status, and docs URL.
     """
     return {
-        "name": "AuthCore API",
-        "version": "1.0.0",
+        "name": APP_TITLE,
+        "version": APP_VERSION,
         "status": "running",
         "docs": "/docs",
     }
