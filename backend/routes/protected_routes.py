@@ -1,3 +1,12 @@
+"""
+Protected API routes requiring authentication.
+
+This module contains endpoints that require valid JWT authentication:
+- User profile access
+- Admin user management
+- Moderator audit log viewing
+- Dashboard statistics
+"""
 from datetime import datetime, timedelta, timezone
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
