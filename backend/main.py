@@ -18,21 +18,21 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# CORS origins - allow localhost and production
-origins = [
+# CORS configuration - allowed origins for cross-origin requests
+CORS_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:3000",
     "https://auth-server-fastapi.vercel.app",
 ]
 
-# Add custom frontend URL if set
+# Add custom frontend URL from environment if configured
 frontend_url = os.getenv("FRONTEND_URL")
 if frontend_url:
-    origins.append(frontend_url)
+    CORS_ORIGINS.append(frontend_url)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
