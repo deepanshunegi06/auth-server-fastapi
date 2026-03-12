@@ -50,7 +50,13 @@ app.include_router(protected_router)
 
 
 @app.get("/")
-def root():
+def root() -> dict:
+    """
+    Health check endpoint returning API status information.
+
+    Returns:
+        dict: API name, version, status, and docs URL.
+    """
     return {
         "name": "AuthCore API",
         "version": "1.0.0",
