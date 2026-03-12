@@ -1,3 +1,9 @@
+"""
+FastAPI application entry point for AuthCore API.
+
+This module configures the FastAPI application, CORS middleware,
+database initialization, and route registration.
+"""
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
