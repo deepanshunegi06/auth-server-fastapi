@@ -23,6 +23,9 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto", bcrypt__rounds
 def validate_password_strength(password: str) -> tuple[bool, str]:
     """
     Validate password meets minimum security requirements.
+    
+    Checks for minimum length, maximum length, and ensures password
+    is not empty or whitespace-only.
 
     Args:
         password: The password string to validate.
@@ -30,6 +33,8 @@ def validate_password_strength(password: str) -> tuple[bool, str]:
     Returns:
         Tuple of (is_valid, error_message). If valid, error_message is empty.
     """
+    if not password or not password.strip():
+        return False, "Password cannot be empty"
     if len(password) < MIN_PASSWORD_LENGTH:
         return False, f"Password must be at least {MIN_PASSWORD_LENGTH} characters"
     if len(password) > MAX_PASSWORD_LENGTH:
