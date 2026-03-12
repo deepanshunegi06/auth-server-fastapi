@@ -12,10 +12,15 @@ from database import Base, engine
 from routes.auth_routes import router as auth_router
 from routes.protected_routes import router as protected_router
 
+# Application metadata
+APP_TITLE = "AuthCore API"
+APP_VERSION = "1.0.0"
+APP_DESCRIPTION = "University Deeptech — JWT Authentication Server"
+
 app = FastAPI(
-    title="AuthCore API",
-    description="University Deeptech — JWT Authentication Server",
-    version="1.0.0",
+    title=APP_TITLE,
+    description=APP_DESCRIPTION,
+    version=APP_VERSION,
 )
 
 # CORS configuration - allowed origins for cross-origin requests
