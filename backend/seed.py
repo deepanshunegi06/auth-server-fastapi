@@ -21,18 +21,38 @@ from auth import hash_password
 Base.metadata.create_all(bind=engine)
 db = SessionLocal()
 
+# Seed data configuration
 SEED_USERS = [
     {"username": "admin",     "email": "admin@demo.com", "password": "Admin1234!", "role": "admin"},
     {"username": "moderator", "email": "mod@demo.com",   "password": "Mod1234!",   "role": "moderator"},
     {"username": "demouser",  "email": "user@demo.com",  "password": "User1234!",  "role": "user"},
 ]
 
-ACTIONS   = ["LOGIN", "LOGIN", "LOGIN", "FAILED_LOGIN", "FAILED_LOGIN", "REGISTER", "LOGOUT", "LOCKED"]
-STATUSES  = {"LOGIN": "SUCCESS", "REGISTER": "SUCCESS", "LOGOUT": "SUCCESS",
-             "FAILED_LOGIN": "FAILED", "LOCKED": "FAILED"}
-EMAILS    = ["admin@demo.com", "mod@demo.com", "user@demo.com",
-             "attacker@evil.com", "test@example.com"]
-IPS       = ["192.168.1.1", "10.0.0.42", "172.16.0.5", "203.0.113.99", "198.51.100.12"]
+# Audit log seed configuration
+AUDIT_LOG_COUNT = 20
+AUDIT_LOG_DAYS_BACK = 7
+ACTIONS = ["LOGIN", "LOGIN", "LOGIN", "FAILED_LOGIN", "FAILED_LOGIN", "REGISTER", "LOGOUT", "LOCKED"]
+STATUSES = {
+    "LOGIN": "SUCCESS",
+    "REGISTER": "SUCCESS",
+    "LOGOUT": "SUCCESS",
+    "FAILED_LOGIN": "FAILED",
+    "LOCKED": "FAILED",
+}
+SAMPLE_EMAILS = [
+    "admin@demo.com",
+    "mod@demo.com",
+    "user@demo.com",
+    "attacker@evil.com",
+    "test@example.com",
+]
+SAMPLE_IPS = [
+    "192.168.1.1",
+    "10.0.0.42",
+    "172.16.0.5",
+    "203.0.113.99",
+    "198.51.100.12",
+]
 
 
 # Create seed users
@@ -52,19 +72,19 @@ for u in SEED_USERS:
         print(f"[CREATE] User created: {u['email']} ({u['role']})")
 
 
-# Seed 20 varied audit log entries spanning last 7 days
+# Seed varied audit log entries spanning last N days
 now = datetime.now(timezone.utc)
-for i in range(20):
+for i in range(AUDIT_LOG_COUNT):
     action = random.choice(ACTIONS)
     status = STATUSES[action]
     timestamp = now - timedelta(
-        days=random.randint(0, 6),
+        days=random.randint(0, AUDIT_LOG_DAYS_BACK - 1),
         hours=random.randint(0, 23),
         minutes=random.randint(0, 59),
     )
     log = AuditLog(
-        email=random.choice(EMAILS),
-        ip_address=random.choice(IPS),
+        email=random.choice(SAMPLE_EMAILS),
+        ip_address=random.choice(SAMPLE_IPS),
         action=action,
         status=status,
         user_agent="Mozilla/5.0 (seed data)",
@@ -73,7 +93,7 @@ for i in range(20):
     db.add(log)
 
 db.commit()
-print(f"[CREATE] 20 fake audit log entries seeded")
+print(f"[CREATE] {AUDIT_LOG_COUNT} fake audit log entries seeded")
 print("\n[DONE] Database seeding complete.")
 print("\nDemo credentials:")
 for u in SEED_USERS:
