@@ -40,7 +40,8 @@ app.add_middleware(
 
 
 @app.on_event("startup")
-def startup():
+def startup() -> None:
+    """Initialize database tables on application startup."""
     Base.metadata.create_all(bind=engine)
 
 
