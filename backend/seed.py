@@ -1,3 +1,12 @@
+"""
+Database seeding script for AuthCore development environment.
+
+Creates demo users (admin, moderator, user) and sample audit log entries.
+Run this script directly to populate the database with test data.
+
+Usage:
+    python seed.py
+"""
 import sys
 import os
 import random
