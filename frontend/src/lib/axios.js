@@ -1,3 +1,11 @@
+/**
+ * Axios API client configuration for AuthCore frontend.
+ * 
+ * Provides a pre-configured axios instance with:
+ * - Base URL from environment or localhost default
+ * - Automatic JWT token attachment to requests
+ * - Global 401 unauthorized handling
+ */
 import axios from 'axios'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
