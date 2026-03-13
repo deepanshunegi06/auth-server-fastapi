@@ -82,11 +82,13 @@ def register(
     ua = request.headers.get("user-agent", "")
 
     # Check for duplicate email
-    if db.query(User).filter(User.email == payload.email).first():
+    existing_email = db.query(User).filter(User.email == payload.email).first()
+    if existing_email:
         raise HTTPException(status_code=409, detail="Email already registered")
 
-    # Check for duplicate username
-    if db.query(User).filter(User.username == payload.username).first():
+    # Check for duplicate username  
+    existing_username = db.query(User).filter(User.username == payload.username).first()
+    if existing_username:
         raise HTTPException(status_code=409, detail="Username already taken")
 
     # Validate role against allowed values
