@@ -56,11 +56,17 @@ api.interceptors.response.use(
   }
 )
 
-// Helper to set token (called from authStore)
+/**
+ * Store the JWT token for API requests.
+ * @param {string} token - The JWT access token
+ */
 export const setAuthToken = (token) => {
   window.__authToken = token
 }
 
+/**
+ * Clear the stored JWT token (used on logout).
+ */
 export const clearAuthToken = () => {
   window.__authToken = null
 }
