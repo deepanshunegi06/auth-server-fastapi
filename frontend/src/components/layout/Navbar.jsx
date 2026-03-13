@@ -39,6 +39,8 @@ export default function Navbar() {
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       className="fixed top-0 inset-x-0 z-40 glass border-b border-white/5"
+      role="navigation"
+      aria-label="Main navigation"
     >
       <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
         {/* Logo */}
