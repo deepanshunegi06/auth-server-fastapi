@@ -22,6 +22,9 @@ from schemas import (
     UserResponse,
 )
 
+# Audit log query limit for pagination
+AUDIT_LOG_LIMIT = 200
+
 router = APIRouter(tags=["Protected"])
 
 
@@ -114,7 +117,7 @@ def get_audit_logs(
     db: Session = Depends(get_db),
     _=Depends(require_role("admin", "moderator")),
 ):
-    return db.query(AuditLog).order_by(AuditLog.timestamp.desc()).limit(200).all()
+    return db.query(AuditLog).order_by(AuditLog.timestamp.desc()).limit(AUDIT_LOG_LIMIT).all()
 
 
 # Moderator+Admin: log statistics
