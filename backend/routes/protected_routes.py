@@ -45,22 +45,30 @@ def get_profile(current_user: User = Depends(get_current_user)) -> ProfileRespon
     )
 
 
-# Admin: list all users
 @router.get("/admin/users", response_model=list[UserResponse])
 def get_all_users(
     db: Session = Depends(get_db),
-    _=Depends(require_role("admin")),
-):
+    _: User = Depends(require_role("admin")),
+) -> list[User]:
+    """
+    Get list of all registered users.
+
+    Admin-only endpoint for user management.
+    """
     return db.query(User).all()
 
 
-# Admin: delete a user by id
 @router.delete("/admin/user/{user_id}", response_model=MessageResponse)
 def delete_user(
     user_id: int,
     db: Session = Depends(get_db),
-    current_user=Depends(require_role("admin")),
-):
+    current_user: User = Depends(require_role("admin")),
+) -> MessageResponse:
+    """
+    Delete a user account by ID.
+
+    Admin-only endpoint. Cannot delete your own account.
+    """
     if current_user.id == user_id:
         raise HTTPException(status_code=400, detail="Cannot delete your own account")
 
@@ -73,13 +81,17 @@ def delete_user(
     return MessageResponse(message=f"User {user_id} deleted successfully")
 
 
-# Admin: unlock a locked user
 @router.patch("/admin/unlock/{user_id}", response_model=UserResponse)
 def unlock_user(
     user_id: int,
     db: Session = Depends(get_db),
-    _=Depends(require_role("admin")),
-):
+    _: User = Depends(require_role("admin")),
+) -> User:
+    """
+    Unlock a locked user account.
+
+    Admin-only endpoint to reset failed attempts and unlock status.
+    """
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -91,12 +103,16 @@ def unlock_user(
     return user
 
 
-# Admin: aggregate stats
 @router.get("/admin/stats", response_model=StatsResponse)
 def get_stats(
     db: Session = Depends(get_db),
-    _=Depends(require_role("admin")),
-):
+    _: User = Depends(require_role("admin")),
+) -> StatsResponse:
+    """
+    Get dashboard statistics for admin panel.
+
+    Returns user counts, active sessions, and security metrics.
+    """
     total_users = db.query(User).count()
     locked_accounts = db.query(User).filter(User.is_locked == True).count()
 
@@ -115,21 +131,29 @@ def get_stats(
     )
 
 
-# Moderator+Admin: full audit log
 @router.get("/moderator/logs", response_model=list[AuditLogResponse])
 def get_audit_logs(
     db: Session = Depends(get_db),
-    _=Depends(require_role("admin", "moderator")),
-):
+    _: User = Depends(require_role("admin", "moderator")),
+) -> list[AuditLog]:
+    """
+    Get recent audit log entries.
+
+    Available to admin and moderator roles.
+    """
     return db.query(AuditLog).order_by(AuditLog.timestamp.desc()).limit(AUDIT_LOG_LIMIT).all()
 
 
-# Moderator+Admin: log statistics
 @router.get("/moderator/logs/stats")
 def get_log_stats(
     db: Session = Depends(get_db),
-    _=Depends(require_role("admin", "moderator")),
-):
+    _: User = Depends(require_role("admin", "moderator")),
+) -> dict:
+    """
+    Get aggregated audit log statistics.
+
+    Returns counts by status and action type.
+    """
     logs = db.query(AuditLog).all()
     total = len(logs)
     success_count = sum(1 for l in logs if l.status == "SUCCESS")
