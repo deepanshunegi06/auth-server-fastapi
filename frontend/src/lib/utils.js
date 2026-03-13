@@ -19,7 +19,12 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs))
 }
 
-// Format date for display
+/**
+ * Format a date for display in US locale format.
+ * @param {Date|string} date - Date to format
+ * @param {Object} options - Additional Intl.DateTimeFormat options
+ * @returns {string} Formatted date string
+ */
 export function formatDate(date, options = {}) {
   const d = new Date(date)
   return d.toLocaleDateString('en-US', {
@@ -30,7 +35,11 @@ export function formatDate(date, options = {}) {
   })
 }
 
-// Format date with time
+/**
+ * Format a date with time for detailed display.
+ * @param {Date|string} date - Date to format
+ * @returns {string} Formatted date and time string
+ */
 export function formatDateTime(date) {
   const d = new Date(date)
   return d.toLocaleString('en-US', {
@@ -42,7 +51,11 @@ export function formatDateTime(date) {
   })
 }
 
-// Parse JWT token payload
+/**
+ * Decode and parse JWT token payload.
+ * @param {string} token - JWT token string
+ * @returns {Object|null} Decoded payload or null if invalid
+ */
 export function parseJwt(token) {
   try {
     const base64Url = token.split('.')[1]
@@ -59,7 +72,11 @@ export function parseJwt(token) {
   }
 }
 
-// Get relative time (e.g., "2 hours ago")
+/**
+ * Get human-readable relative time string.
+ * @param {Date|string} date - Date to compare against now
+ * @returns {string} Relative time string (e.g., "2h ago")
+ */
 export function getRelativeTime(date) {
   const now = new Date()
   const d = new Date(date)
@@ -76,7 +93,11 @@ export function getRelativeTime(date) {
   return formatDate(date)
 }
 
-// Parse JWT header
+/**
+ * Decode and parse JWT token header.
+ * @param {string} token - JWT token string
+ * @returns {Object|null} Decoded header or null if invalid
+ */
 export function parseJwtHeader(token) {
   try {
     const base64Url = token.split('.')[0]
@@ -93,7 +114,11 @@ export function parseJwtHeader(token) {
   }
 }
 
-// Format role for display
+/**
+ * Format user role for display with color styling.
+ * @param {string} role - User role identifier
+ * @returns {{label: string, color: string}} Display label and Tailwind color class
+ */
 export function formatRole(role) {
   if (!role) return { label: 'Unknown', color: 'text-slate-400' }
   const roles = {
@@ -104,7 +129,11 @@ export function formatRole(role) {
   return roles[role] || { label: role.charAt(0).toUpperCase() + role.slice(1), color: 'text-slate-400' }
 }
 
-// Check password strength
+/**
+ * Calculate password strength score and return feedback.
+ * @param {string} password - Password to evaluate
+ * @returns {{score: number, label: string, color: string}} Strength assessment
+ */
 export function passwordStrength(password) {
   if (!password) return { score: 0, label: 'None', color: 'gray' }
   
