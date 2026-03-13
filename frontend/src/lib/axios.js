@@ -17,8 +17,13 @@ const api = axios.create({
   },
 })
 
-// Logout callback - will be set by App
+/** Callback function triggered on 401 unauthorized responses */
 let onUnauthorized = null
+
+/**
+ * Register a callback to be invoked when a 401 response is received.
+ * @param {Function} callback - Function to call on unauthorized response
+ */
 export const setUnauthorizedCallback = (callback) => {
   onUnauthorized = callback
 }
