@@ -1,7 +1,20 @@
+/**
+ * Utility functions for the AuthCore frontend application.
+ * 
+ * Includes helpers for:
+ * - Tailwind CSS class merging
+ * - Date/time formatting
+ * - JWT token parsing
+ * - Password strength validation
+ */
 import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
-// Merge Tailwind classes
+/**
+ * Merge Tailwind CSS classes with conflict resolution.
+ * @param {...string} inputs - CSS class strings to merge
+ * @returns {string} Merged class string
+ */
 export function cn(...inputs) {
   return twMerge(clsx(inputs))
 }
