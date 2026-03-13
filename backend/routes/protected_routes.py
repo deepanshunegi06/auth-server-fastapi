@@ -28,9 +28,13 @@ AUDIT_LOG_LIMIT = 200
 router = APIRouter(tags=["Protected"])
 
 
-# Return profile of currently authenticated user
 @router.get("/profile", response_model=ProfileResponse)
-def get_profile(current_user=Depends(get_current_user)):
+def get_profile(current_user: User = Depends(get_current_user)) -> ProfileResponse:
+    """
+    Get the authenticated user's profile information.
+
+    Returns user details and token expiration time.
+    """
     expires_at = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     return ProfileResponse(
         user_id=current_user.id,
