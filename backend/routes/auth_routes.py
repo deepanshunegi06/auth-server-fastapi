@@ -107,7 +107,17 @@ def register(
 
 
 @router.post("/login", response_model=TokenResponse)
-def login(payload: LoginRequest, request: Request, db: Session = Depends(get_db)):
+def login(
+    payload: LoginRequest,
+    request: Request,
+    db: Session = Depends(get_db)
+) -> TokenResponse:
+    """
+    Authenticate user and issue JWT tokens.
+
+    Validates credentials with brute-force protection. Locks account
+    after MAX_FAILED_ATTEMPTS. Returns access and refresh tokens on success.
+    """
     ip = request.client.host
     ua = request.headers.get("user-agent", "")
 
