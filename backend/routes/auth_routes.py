@@ -31,7 +31,9 @@ from schemas import (
 
 router = APIRouter(tags=["Authentication"])
 
+# Security configuration
 MAX_FAILED_ATTEMPTS = 5
+VALID_ROLES = ["user", "moderator", "admin"]
 
 
 def log_action(
@@ -77,9 +79,8 @@ def register(payload: RegisterRequest, request: Request, db: Session = Depends(g
     if db.query(User).filter(User.username == payload.username).first():
         raise HTTPException(status_code=409, detail="Username already taken")
 
-    # Validate role
-    valid_roles = ["user", "moderator", "admin"]
-    role = payload.role if payload.role in valid_roles else "user"
+    # Validate role against allowed values
+    role = payload.role if payload.role in VALID_ROLES else "user"
 
     user = User(
         username=payload.username,
