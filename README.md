@@ -1,6 +1,6 @@
-# AuthCore — Authentication Server
+# AuthCore - Authentication Server
 
-> University Deeptech Project · FastAPI + React · JWT · bcrypt · RBAC
+> University Deeptech Project - FastAPI + React - JWT - bcrypt - RBAC
 
 ---
 
