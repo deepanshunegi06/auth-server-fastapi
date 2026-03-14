@@ -67,7 +67,17 @@ def log_action(
 
 
 @router.post("/register", response_model=UserResponse, status_code=201)
-def register(payload: RegisterRequest, request: Request, db: Session = Depends(get_db)):
+def register(
+    payload: RegisterRequest,
+    request: Request,
+    db: Session = Depends(get_db)
+) -> User:
+    """
+    Register a new user account.
+
+    Creates a new user with hashed password and validates uniqueness
+    of email and username. Logs registration event to audit log.
+    """
     ip = request.client.host
     ua = request.headers.get("user-agent", "")
 
