@@ -140,7 +140,7 @@ export default function LandingPage() {
             transition={{ delay: 0.3 }}
             className="text-xl text-slate-400 font-body max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            A production-grade authentication server with JWT, bcrypt, RBAC, and token blacklisting — built end-to-end with FastAPI and React.
+            A production-grade authentication server with JWT tokens, bcrypt password hashing, role-based access control, and token blacklisting — built with FastAPI and React.
           </motion.p>
 
           {/* CTAs */}
