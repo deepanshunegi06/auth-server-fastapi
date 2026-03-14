@@ -168,8 +168,13 @@ def login(
 def logout(
     request: Request,
     db: Session = Depends(get_db),
-    current_user=Depends(get_current_user),
-):
+    current_user: User = Depends(get_current_user),
+) -> MessageResponse:
+    """
+    Logout user and blacklist the current access token.
+
+    Adds the JWT to the blacklist to prevent further use.
+    """
     ip = request.client.host
     ua = request.headers.get("user-agent", "")
 
@@ -187,7 +192,16 @@ def logout(
 
 
 @router.post("/refresh-token")
-def refresh_token(payload: RefreshRequest, db: Session = Depends(get_db)):
+def refresh_token(
+    payload: RefreshRequest,
+    db: Session = Depends(get_db)
+) -> dict:
+    """
+    Exchange refresh token for new access token.
+
+    Validates the refresh token type and issues a new access token
+    without requiring re-authentication.
+    """
     token_data = decode_token(payload.refresh_token)
 
     # Enforce refresh-only tokens
