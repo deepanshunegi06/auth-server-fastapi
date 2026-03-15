@@ -23,6 +23,7 @@ export default {
           amber: '#f5a623',
           red: '#ff4757',
           orange: '#ffa502',
+          blue: '#3b82f6',
         },
       },
       fontFamily: {
