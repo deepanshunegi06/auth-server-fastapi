@@ -14,12 +14,12 @@ const DEMO_CREDS = [
 ]
 
 export default function LoginForm() {
-  const [email, setEmail]       = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [showPw, setShowPw]     = useState(false)
-  const [loading, setLoading]   = useState(false)
-  const [shake, setShake]       = useState(false)
-  const [error, setError]       = useState('')
+  const [showPw, setShowPw] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [shake, setShake] = useState(false)
+  const [error, setError] = useState('')
 
   const { login } = useAuthStore()
   const showToast = useToast()
