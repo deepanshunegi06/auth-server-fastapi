@@ -11,7 +11,13 @@ export function ToastProvider({ children }) {
   )
 }
 
-export function ToastItem({ open, onOpenChange, title, description, variant = 'default' }) {
+export function ToastItem({ 
+  open, 
+  onOpenChange, 
+  title, 
+  description, 
+  variant = 'default' 
+}) {
   const borderMap = {
     success: 'border-brand/50',
     error:   'border-accent-red/50',
