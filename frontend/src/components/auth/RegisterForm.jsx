@@ -13,10 +13,10 @@ const STRENGTH_CONFIG = [
 ]
 
 export default function RegisterForm({ onSuccess }) {
-  const [form, setForm]       = useState({ username: '', email: '', password: '', role: 'user' })
-  const [showPw, setShowPw]   = useState(false)
+  const [form, setForm] = useState({ username: '', email: '', password: '', role: 'user' })
+  const [showPw, setShowPw] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [error, setError]     = useState('')
+  const [error, setError] = useState('')
   const showToast = useToast()
 
   const strength = form.password ? passwordStrength(form.password) : -1
