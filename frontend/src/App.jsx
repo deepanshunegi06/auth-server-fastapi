@@ -19,8 +19,15 @@ export function useToast() {
 
 function ProtectedRoute({ children, adminOnly = false }) {
   const { isAuthenticated, user } = useAuthStore()
-  if (!isAuthenticated) return <Navigate to="/auth" replace />
-  if (adminOnly && user?.role !== 'admin') return <Navigate to="/dashboard" replace />
+  
+  if (!isAuthenticated) {
+    return <Navigate to="/auth" replace />
+  }
+  
+  if (adminOnly && user?.role !== 'admin') {
+    return <Navigate to="/dashboard" replace />
+  }
+  
   return children
 }
 
