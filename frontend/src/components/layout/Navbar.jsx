@@ -16,10 +16,12 @@ export default function Navbar() {
   const handleLogout = async () => {
     try {
       await api.post('/logout')
-    } catch {}
+      showToast({ title: 'Logged out', description: 'See you next time!', variant: 'default' })
+    } catch (error) {
+      showToast({ title: 'Logout error', description: 'Could not logout properly', variant: 'destructive' })
+    }
     clearAuthToken()
     logout()
-    showToast({ title: 'Logged out', description: 'See you next time!', variant: 'default' })
     navigate('/')
   }
 
