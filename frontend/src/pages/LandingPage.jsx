@@ -316,7 +316,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 py-8 text-center">
+      <footer className="border-t border-white/5 py-8 text-center" role="contentinfo">
         <p className="text-xs text-slate-600 font-mono">
           AuthCore · University Deeptech · FastAPI + React · MIT License
         </p>
