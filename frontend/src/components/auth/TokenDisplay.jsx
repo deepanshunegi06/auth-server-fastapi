@@ -8,8 +8,8 @@ import { useToast } from '@/App'
 export default function TokenDisplay() {
   const { token, tokenExpiry, logout } = useAuthStore()
   const showToast = useToast()
-  const [copied, setCopied]         = useState(false)
-  const [remaining, setRemaining]   = useState(null)
+  const [copied, setCopied] = useState(false)
+  const [remaining, setRemaining] = useState(null)
 
   useEffect(() => {
     if (!tokenExpiry) return
