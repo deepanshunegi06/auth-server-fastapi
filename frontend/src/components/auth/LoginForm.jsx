@@ -66,6 +66,8 @@ export default function LoginForm() {
       animate={shake ? { x: [0, -10, 10, -8, 8, -4, 4, 0] } : {}}
       transition={{ duration: 0.5 }}
       className="space-y-4"
+      role="form"
+      aria-label="Login form"
     >
       {/* Demo credentials */}
       <div className="grid grid-cols-3 gap-2">
