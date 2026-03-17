@@ -9,7 +9,7 @@ import { useToast } from '@/App'
 
 export default function AuthPage() {
   const [tab, setTab] = useState('login')
-  const showToast     = useToast()
+  const showToast = useToast()
 
   const handleRegisterSuccess = () => {
     setTab('login')
