@@ -44,7 +44,7 @@ export default function RegisterForm({ onSuccess }) {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" role="form" aria-label="Registration form">
       {/* Username */}
       <div>
         <label className="block text-xs font-display font-semibold text-slate-400 mb-1.5">Username</label>
