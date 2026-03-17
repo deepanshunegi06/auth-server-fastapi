@@ -46,7 +46,12 @@ app.add_middleware(
 
 @app.on_event("startup")
 def startup() -> None:
-    """Initialize database tables on application startup."""
+    """
+    Initialize database tables on application startup.
+    
+    Creates all tables defined in models if they don't exist.
+    This runs once when the FastAPI app starts.
+    """
     Base.metadata.create_all(bind=engine)
 
 
