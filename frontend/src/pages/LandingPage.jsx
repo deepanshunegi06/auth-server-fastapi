@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion'
 import { Shield, Key, Lock, ArrowRight, Copy, Check, ChevronRight } from 'lucide-react'
 import Navbar from '@/components/layout/Navbar'
 
-// Animated counter
+// Counter component with animation
 function Counter({ target, suffix = '' }) {
   const [value, setValue] = useState(0)
   const ref = useRef()
