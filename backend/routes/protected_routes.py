@@ -67,7 +67,8 @@ def delete_user(
     """
     Delete a user account by ID.
 
-    Admin-only endpoint. Cannot delete your own account.
+    Admin-only endpoint. Cannot delete your own account for security.
+    Validates user existence before deletion.
     """
     if current_user.id == user_id:
         raise HTTPException(status_code=400, detail="Cannot delete your own account")
@@ -76,8 +77,13 @@ def delete_user(
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
+    # Store username for response message
+    deleted_username = user.username
+
     db.delete(user)
     db.commit()
+    
+    return MessageResponse(message=f"User '{deleted_username}' deleted successfully")
     return MessageResponse(message=f"User {user_id} deleted successfully")
 
 
