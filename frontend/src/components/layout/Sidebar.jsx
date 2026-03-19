@@ -8,9 +8,9 @@ import { useToast } from '@/App'
 import api from '@/lib/axios'
 
 const navItems = [
-  { to: '/dashboard', label: 'Overview',  icon: LayoutDashboard },
-  { to: '/demo',      label: 'API Demo',  icon: Code2 },
-  { to: '/admin',     label: 'Admin',     icon: Users, adminOnly: true },
+  { to: '/dashboard', label: 'Overview', icon: LayoutDashboard },
+  { to: '/demo', label: 'API Demo', icon: Code2 },
+  { to: '/admin', label: 'Admin', icon: Users, adminOnly: true },
 ]
 
 export default function Sidebar() {
