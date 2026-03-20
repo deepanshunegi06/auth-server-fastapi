@@ -10,7 +10,7 @@ import DashboardPage from '@/pages/DashboardPage.jsx'
 import ApiDemoPage from '@/pages/ApiDemoPage.jsx'
 import AdminPage from '@/pages/AdminPage.jsx'
 
-// Toast context for global notifications
+// Context for global toast notifications
 export const ToastContext = createContext(null)
 
 export function useToast() {
