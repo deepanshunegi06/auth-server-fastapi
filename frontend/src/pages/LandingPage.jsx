@@ -190,7 +190,7 @@ export default function LandingPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <p className="text-xs font-mono text-brand mb-3">SECURITY ARCHITECTURE</p>
+            <p className="text-xs font-mono text-brand mb-3" role="heading" aria-level="3">SECURITY ARCHITECTURE</p>
             <h2 className="section-title">How It Works</h2>
           </motion.div>
 
@@ -229,7 +229,7 @@ export default function LandingPage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <p className="text-xs font-mono text-brand mb-3">REQUEST LIFECYCLE</p>
+            <p className="text-xs font-mono text-brand mb-3" role="heading" aria-level="3">REQUEST LIFECYCLE</p>
             <h2 className="section-title">Authentication Flow</h2>
           </motion.div>
 
@@ -269,7 +269,7 @@ export default function LandingPage() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <p className="text-xs font-mono text-brand mb-3">QUICK START</p>
+            <p className="text-xs font-mono text-brand mb-3" role="heading" aria-level="3">QUICK START</p>
             <h2 className="section-title">Demo Credentials</h2>
             <p className="text-slate-500 text-sm mt-3 font-body">Three seeded accounts with different permission levels</p>
           </motion.div>
