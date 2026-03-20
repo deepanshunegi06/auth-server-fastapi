@@ -37,7 +37,7 @@ def get_current_user(
     """
     token = credentials.credentials
 
-    # Check token blacklist
+    # Check token blacklist first for performance
     blacklisted = db.query(TokenBlacklist).filter(TokenBlacklist.token == token).first()
     if blacklisted:
         raise HTTPException(
@@ -45,7 +45,14 @@ def get_current_user(
             detail="Token has been revoked",
         )
 
-    payload = decode_token(token)
+    # Decode and validate token payload
+    try:
+        payload = decode_token(token)
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired token",
+        )
     user_id = payload.get("sub")
     if user_id is None:
         raise HTTPException(
