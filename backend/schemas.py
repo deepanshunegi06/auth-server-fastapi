@@ -17,6 +17,18 @@ class RegisterRequest(BaseModel):
     password: str
     role: Optional[str] = "user"
 
+    @field_validator("username")
+    @classmethod
+    def validate_username(cls, v):
+        """Validate username format and length."""
+        if len(v.strip()) < 3:
+            raise ValueError("Username must be at least 3 characters")
+        if len(v) > 50:
+            raise ValueError("Username must be at most 50 characters")
+        if not v.replace('_', '').replace('-', '').isalnum():
+            raise ValueError("Username can only contain letters, numbers, hyphens, and underscores")
+        return v.strip()
+
     @field_validator("password")
     @classmethod
     def validate_password(cls, v):
