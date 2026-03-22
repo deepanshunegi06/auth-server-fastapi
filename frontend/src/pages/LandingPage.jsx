@@ -182,7 +182,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── HOW IT WORKS ─────────────────────────────── */}
-      <section className="py-24 px-6 bg-mesh">
+      <section className="py-24 px-6 bg-mesh" aria-labelledby="features-heading">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -191,7 +191,7 @@ export default function LandingPage() {
             className="text-center mb-16"
           >
             <p className="text-xs font-mono text-brand mb-3" role="heading" aria-level="3">SECURITY ARCHITECTURE</p>
-            <h2 className="section-title">How It Works</h2>
+            <h2 className="section-title" id="features-heading">How It Works</h2>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6">
