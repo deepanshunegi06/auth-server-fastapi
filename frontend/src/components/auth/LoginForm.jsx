@@ -8,9 +8,9 @@ import { useToast } from '@/App'
 import { cn } from '@/lib/utils'
 
 const DEMO_CREDS = [
-  { label: 'Admin',     email: 'admin@demo.com', password: 'Admin1234!', role: 'admin' },
-  { label: 'Moderator', email: 'mod@demo.com',   password: 'Mod1234!',   role: 'moderator' },
-  { label: 'User',      email: 'user@demo.com',  password: 'User1234!',  role: 'user' },
+  { label: 'Admin', email: 'admin@demo.com', password: 'Admin1234!', role: 'admin' },
+  { label: 'Moderator', email: 'mod@demo.com', password: 'Mod1234!', role: 'moderator' },
+  { label: 'User', email: 'user@demo.com', password: 'User1234!', role: 'user' },
 ]
 
 export default function LoginForm() {
