@@ -134,9 +134,15 @@ def login(
         raise HTTPException(status_code=423, detail="Account is locked due to too many failed attempts")
 
     # Wrong password path
+    # Check if user account is already locked
+    if user.is_locked:
+        log_action(db, payload.email, ip, "LOCKED", "FAILED", ua)
+        raise HTTPException(status_code=423, detail="Account locked after too many failed attempts")
+
     if not verify_password(payload.password, user.hashed_password):
         user.failed_attempts += 1
-
+        
+        # Lock account if max attempts reached
         if user.failed_attempts >= MAX_FAILED_ATTEMPTS:
             user.is_locked = True
             db.commit()
