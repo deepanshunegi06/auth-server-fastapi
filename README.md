@@ -6,14 +6,14 @@
 
 ## Project Overview
 
-AuthCore is a production-grade authentication server demonstrating industry-standard security patterns:
+AuthCore is a production-grade authentication server showcasing industry-standard security patterns and best practices:
 
-- **JWT-based authentication** with access (30 min) and refresh (7 day) tokens
-- **bcrypt password hashing** at cost factor 12 (4096+ key-derivation rounds)
-- **Role-Based Access Control (RBAC)** with three permission tiers
-- **Token blacklisting** for secure logout
-- **Brute-force protection** — account lockout after 5 failed attempts
-- **Full audit logging** of every auth event with IP and user-agent tracking
+- **JWT-based authentication** with short-lived access tokens (30 min) and long-lived refresh tokens (7 days)
+- **bcrypt password hashing** at cost factor 12, ensuring over 4096 key-derivation rounds for maximum security
+- **Role-Based Access Control (RBAC)** with three permission tiers: admin, moderator, and user
+- **Token blacklisting** for secure logout and session invalidation
+- **Brute-force protection** with account lockout after 5 failed login attempts
+- **Comprehensive audit logging** tracking every authentication event with IP addresses and user-agent data
 
 ---
 
