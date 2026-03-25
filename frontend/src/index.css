@@ -129,8 +129,8 @@
   }
 
   .status-success { @apply text-brand bg-brand/10 border-brand/20; }
-  .status-failed  { @apply text-accent-red bg-accent-red/10 border-accent-red/20; }
-  .status-locked  { @apply text-accent-amber bg-accent-amber/10 border-accent-amber/20; }
+  .status-failed { @apply text-accent-red bg-accent-red/10 border-accent-red/20; }
+  .status-locked { @apply text-accent-amber bg-accent-amber/10 border-accent-amber/20; }
 }
 
 /* Orb animation for hero background */
