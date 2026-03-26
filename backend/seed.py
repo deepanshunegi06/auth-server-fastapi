@@ -23,9 +23,9 @@ db = SessionLocal()
 
 # Seed data configuration
 SEED_USERS = [
-    {"username": "admin",     "email": "admin@demo.com", "password": "Admin1234!", "role": "admin"},
-    {"username": "moderator", "email": "mod@demo.com",   "password": "Mod1234!",   "role": "moderator"},
-    {"username": "demouser",  "email": "user@demo.com",  "password": "User1234!",  "role": "user"},
+    {"username": "admin", "email": "admin@demo.com", "password": "Admin1234!", "role": "admin"},
+    {"username": "moderator", "email": "mod@demo.com", "password": "Mod1234!", "role": "moderator"},
+    {"username": "demouser", "email": "user@demo.com", "password": "User1234!", "role": "user"},
 ]
 
 # Audit log seed configuration
