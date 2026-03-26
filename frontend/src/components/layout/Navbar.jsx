@@ -30,7 +30,7 @@ export default function Navbar() {
 
   const navLinks = [
     { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { to: '/demo',      label: 'API Demo',  icon: Code2 },
+    { to: '/demo', label: 'API Demo', icon: Code2 },
     ...(user?.role === 'admin' ? [{ to: '/admin', label: 'Admin', icon: Settings }] : []),
   ]
 
