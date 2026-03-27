@@ -4,12 +4,14 @@ Authentication utilities for AuthCore API.
 This module provides JWT token creation/validation and bcrypt password
 hashing functions. All security-sensitive constants are defined here.
 """
+import os
 from datetime import datetime, timedelta, timezone
 from fastapi import HTTPException, status
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
-SECRET_KEY = "authcore-university-demo-secret-2025"
+# Use environment variable for secret key in production
+SECRET_KEY = os.getenv("JWT_SECRET_KEY", "authcore-university-demo-secret-2025")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 REFRESH_TOKEN_EXPIRE_DAYS = 7
