@@ -26,7 +26,7 @@ function Counter({ target, suffix = '' }) {
   return <span ref={ref}>{value}{suffix}</span>
 }
 
-// Copy-to-clipboard button
+// Copy button component for demo credentials
 function CopyBtn({ text }) {
   const [copied, setCopied] = useState(false)
   const handle = () => {
