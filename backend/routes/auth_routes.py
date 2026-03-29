@@ -207,10 +207,18 @@ def refresh_token(
     """
     Exchange refresh token for new access token.
 
-    Validates the refresh token type and issues a new access token
-    without requiring re-authentication.
+    Validates the refresh token type, checks if blacklisted, and issues 
+    a new access token without requiring re-authentication.
     """
-    token_data = decode_token(payload.refresh_token)
+    # Check if refresh token is blacklisted
+    blacklisted = db.query(TokenBlacklist).filter(TokenBlacklist.token == payload.refresh_token).first()
+    if blacklisted:
+        raise HTTPException(status_code=401, detail="Refresh token has been revoked")
+
+    try:
+        token_data = decode_token(payload.refresh_token)
+    except Exception:
+        raise HTTPException(status_code=401, detail="Invalid or expired refresh token")
 
     # Enforce refresh-only tokens
     if token_data.get("type") != "refresh":
