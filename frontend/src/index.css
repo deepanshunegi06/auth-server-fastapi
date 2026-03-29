@@ -49,8 +49,9 @@
     border-radius: 2px;
   }
 
+  /* Improve contrast for better accessibility */
   ::-webkit-scrollbar-thumb:hover {
-    background: #00f5c440;
+    background: #00f5c460;
   }
 }
 
