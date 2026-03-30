@@ -267,11 +267,11 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
             <p className="text-xs font-mono text-brand mb-3" role="heading" aria-level="3">QUICK START</p>
             <h2 className="section-title">Demo Credentials</h2>
-            <p className="text-slate-500 text-sm mt-3 font-body">Three seeded accounts with different permission levels</p>
+            <p className="text-slate-500 text-sm mt-3 font-body">Three pre-configured accounts with different permission levels for testing</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-4">
