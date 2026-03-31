@@ -4,6 +4,7 @@ FastAPI application entry point for AuthCore API.
 This module configures the FastAPI application, CORS middleware,
 database initialization, and route registration.
 """
+from datetime import datetime, timezone
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
@@ -57,6 +58,21 @@ def startup() -> None:
 
 app.include_router(auth_router)
 app.include_router(protected_router)
+
+
+@app.get("/health")
+def health_check() -> dict:
+    """
+    Health check endpoint for monitoring and load balancers.
+    
+    Returns basic application health status and metadata.
+    """
+    return {
+        "status": "healthy",
+        "service": APP_TITLE,
+        "version": APP_VERSION,
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    }
 
 
 @app.get("/")
