@@ -5,7 +5,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import useAuthStore from '@/store/authStore'
 import { useToast } from '@/App'
 import { formatRole, cn } from '@/lib/utils'
-import api from '@/lib/axios'
+import api, { clearAuthToken } from '@/lib/axios'
 
 export default function Navbar() {
   const { isAuthenticated, user, logout } = useAuthStore()
@@ -17,6 +17,7 @@ export default function Navbar() {
     try {
       await api.post('/logout')
     } catch {}
+    clearAuthToken()
     logout()
     showToast({ title: 'Logged out', description: 'See you next time!', variant: 'default' })
     navigate('/')

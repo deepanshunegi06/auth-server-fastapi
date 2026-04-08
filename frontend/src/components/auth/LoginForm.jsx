@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Eye, EyeOff, Loader2, LogIn, Zap } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import api from '@/lib/axios'
+import api, { setAuthToken } from '@/lib/axios'
 import useAuthStore from '@/store/authStore'
 import { useToast } from '@/App'
 import { cn } from '@/lib/utils'
@@ -36,7 +36,8 @@ export default function LoginForm() {
     setError('')
     try {
       const { data } = await api.post('/login', { email, password })
-      const expiry = Date.now() + data.expires_in * 1000
+      const expiry = Date.now() + 30 * 60 * 1000 // 30 minutes
+      setAuthToken(data.access_token)
       login(data.user, data.access_token, expiry)
       showToast({ title: 'Welcome back!', description: `Logged in as ${data.user.username}`, variant: 'success' })
       navigate('/dashboard')

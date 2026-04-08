@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+import os
 from database import Base, engine
 from routes.auth_routes import router as auth_router
 from routes.protected_routes import router as protected_router
@@ -11,10 +12,21 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# Allow frontend dev server
+# CORS origins - allow localhost and production
+origins = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://auth-server-fastapi.vercel.app",
+]
+
+# Add custom frontend URL if set
+frontend_url = os.getenv("FRONTEND_URL")
+if frontend_url:
+    origins.append(frontend_url)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

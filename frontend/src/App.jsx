@@ -1,13 +1,14 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { useState, createContext, useContext, useCallback } from 'react'
+import { useState, createContext, useContext, useCallback, useEffect } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { ToastProvider, ToastItem } from '@/components/ui/Toast'
-import useAuthStore from '@/store/authStore'
-import LandingPage from '@/pages/LandingPage'
-import AuthPage from '@/pages/AuthPage'
-import DashboardPage from '@/pages/DashboardPage'
-import ApiDemoPage from '@/pages/ApiDemoPage'
-import AdminPage from '@/pages/AdminPage'
+import { ToastProvider, ToastItem } from '@/components/ui/Toast.jsx'
+import useAuthStore from '@/store/authStore.js'
+import { setUnauthorizedCallback, clearAuthToken } from '@/lib/axios.js'
+import LandingPage from '@/pages/LandingPage.jsx'
+import AuthPage from '@/pages/AuthPage.jsx'
+import DashboardPage from '@/pages/DashboardPage.jsx'
+import ApiDemoPage from '@/pages/ApiDemoPage.jsx'
+import AdminPage from '@/pages/AdminPage.jsx'
 
 // Toast context for global notifications
 export const ToastContext = createContext(null)
@@ -31,6 +32,15 @@ function PublicOnlyRoute({ children }) {
 
 export default function App() {
   const [toasts, setToasts] = useState([])
+  const logout = useAuthStore((state) => state.logout)
+
+  // Set up global 401 handler
+  useEffect(() => {
+    setUnauthorizedCallback(() => {
+      clearAuthToken()
+      logout()
+    })
+  }, [logout])
 
   const showToast = useCallback(({ title, description, variant = 'default' }) => {
     const id = Date.now()
